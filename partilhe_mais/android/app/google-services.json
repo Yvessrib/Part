@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "231072860001",
+    "project_id": "partilhe-mais",
+    "storage_bucket": "partilhe-mais.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231072860001:android:511e88ca20ea5d92bc6720",
+        "android_client_info": {
+          "package_name": "com.example.partilhe_mais"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231072860001-ona88q8covcsr11dieooiou6f0o2viu9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8mfhFBhsNBT3510x7AG_KzuvIA_xsPW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231072860001-ona88q8covcsr11dieooiou6f0o2viu9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "231072860001-t9ce1sh6edl91fuu0fgj960q41iu9ggj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.partilheMais"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
