@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'Category_button.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -14,16 +14,19 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  void signUserOut() {
-    FirebaseAuth.instance.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF1C1C1C),
       appBar: AppBar(actions: [
-        IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))
+        IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then((value) {
+                Navigator.of(context).pushNamed('/');
+              });
+            },
+            icon: Icon(Icons.logout))
       ]),
       body: Center(
         child: Column(
@@ -34,14 +37,19 @@ class HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 3, color: Color(0xFFF0EC57)),
-                      borderRadius: BorderRadius.circular(45)),
-                  child: Image.asset(
-                    'assets/icons/Ellipse 2.png',
-                    height: 83,
+                GestureDetector(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 3, color: Color(0xFFF0EC57)),
+                        borderRadius: BorderRadius.circular(45)),
+                    child: Image.asset(
+                      'assets/icons/Ellipse 2.png',
+                      height: 83,
+                    ),
                   ),
+                  onTap: () {
+                    Navigator.of(context).pushNamed('UserPage');
+                  },
                 ),
                 Column(
                   children: [
@@ -125,7 +133,9 @@ class HomeState extends State<Home> {
                 child: Column(
                   children: [
                     Category_button(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('ListCategory');
+                      },
                       buttonColor: Color(0xFFF55050),
                       buttonText: 'Saúde',
                       iconPath: 'assets/icons/heart-beat.png',

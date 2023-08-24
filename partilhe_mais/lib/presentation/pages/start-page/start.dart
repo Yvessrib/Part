@@ -13,6 +13,7 @@ class StartState extends State<Start> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF1C1C1C),
       body: SizedBox(
         width: double.infinity,
