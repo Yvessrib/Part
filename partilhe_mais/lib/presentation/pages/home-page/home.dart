@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Category_button.dart';
 
@@ -14,6 +13,8 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  final currentUser = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +49,7 @@ class HomeState extends State<Home> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamed('UserPage');
+                    Navigator.of(context).pushNamed('Profile');
                   },
                 ),
                 Column(
@@ -62,7 +63,7 @@ class HomeState extends State<Home> {
                           color: Colors.white),
                     ),
                     Text(
-                      'Toninho Rodrigues',
+                      'Toninho Rodrihues',
                       style: TextStyle(
                           fontFamily: 'Raleway',
                           fontSize: 25,

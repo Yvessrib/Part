@@ -1,9 +1,11 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
-import 'package:partilhe_mais/presentation/components/auth_check.dart';
+import 'package:partilhe_mais/features/authentication/auth_check.dart';
 import 'package:partilhe_mais/presentation/pages/home-page/home.dart';
 import 'package:partilhe_mais/presentation/pages/list-category-page/list-category.dart';
+import 'package:partilhe_mais/presentation/pages/ong-page/ong_page.dart';
+import 'package:partilhe_mais/presentation/pages/research-page/research_page.dart';
 import 'package:partilhe_mais/presentation/pages/signin-page/signin.dart';
 import 'package:partilhe_mais/presentation/pages/signup-page/signup_1.dart';
 import 'package:partilhe_mais/presentation/pages/signup-page/signup_2.dart';
@@ -48,7 +50,9 @@ class MyApp extends StatelessWidget {
         'SignUp1': (context) => SignUp1(),
         'SignUp2': (context) => SignUp2(),
         'ListCategory': (context) => ListCategory(),
-        'UserPage':(context) => UserPage(),
+        'Profile': (context) => Profile(),
+        'ONG': (context) => ONG(),
+        'Research': (context) => Research(),
       },
     );
   }

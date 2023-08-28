@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:partilhe_mais/presentation/components/MyTextFormfield.dart';
@@ -23,6 +24,41 @@ class SignUpState extends State<SignUp1> {
   String cpf = '';
   String password = '';
   String passwordconfirmation = '';
+
+  Future signUp() async {
+    if (passwordConfirmed()) {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailcontroler.text.trim(),
+              password: passwordcontroler.text.trim())
+          .then((value) {
+        Navigator.of(context).pushNamed('SignIn');
+        
+      });
+
+      // add user details
+      addUserDetails(namecontroler.text.trim(), emailcontroler.text.trim(),
+          cpfcontroler.text.trim());
+    }
+  }
+
+  Future addUserDetails(String name, String email, String cpf) async {
+    await FirebaseFirestore.instance
+        .collection("Users")
+        .doc(cpfcontroler.text.trim())
+        .set({
+      "name": namecontroler.text.trim(),
+      "email": emailcontroler.text.trim(),
+    });
+  }
+
+  bool passwordConfirmed() {
+    if (passwordcontroler.text.trim() ==
+        passwordconfirmationcontroler.text.trim()) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +190,7 @@ class SignUpState extends State<SignUp1> {
                       obscureText: true,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Porvaor, digite uma senha válida';
+                          return 'Porfavor, digite uma senha válida';
                         }
                         return null;
                       },
@@ -189,13 +225,7 @@ class SignUpState extends State<SignUp1> {
                                   minimumSize: Size(110, 27)),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  FirebaseAuth.instance
-                                      .createUserWithEmailAndPassword(
-                                          email: emailcontroler.text,
-                                          password: passwordcontroler.text)
-                                      .then((value) {
-                                    Navigator.of(context).pushNamed('SignIn');
-                                  });
+                                  signUp();
                                 }
                               },
                               child: Text(

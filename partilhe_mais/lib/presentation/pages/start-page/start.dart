@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:partilhe_mais/presentation/pages/start-page/buttonStart.dart';
 
@@ -10,8 +11,19 @@ class Start extends StatefulWidget {
 }
 
 class StartState extends State<Start> {
+  Future test() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    test();
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF1C1C1C),
