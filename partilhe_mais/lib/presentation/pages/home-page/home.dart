@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:partilhe_mais/features/crud-user/read_name.dart';
 import 'Category_button.dart';
 
 // ignore: use_key_in_widget_constructors
@@ -13,22 +15,28 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  final currentUser = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
+
+  String docIDs = '';
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: user?.email)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            print(document.reference);
+            docIDs = document.reference.id;
+          }),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: const Color(0xFF1C1C1C),
-      appBar: AppBar(actions: [
-        IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                Navigator.of(context).pushNamed('/');
-              });
-            },
-            icon: Icon(Icons.logout))
-      ]),
       body: Center(
         child: Column(
           children: [
@@ -62,13 +70,11 @@ class HomeState extends State<Home> {
                           fontWeight: FontWeight.w400,
                           color: Colors.white),
                     ),
-                    Text(
-                      'Toninho Rodrihues',
-                      style: TextStyle(
-                          fontFamily: 'Raleway',
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                    FutureBuilder(
+                      future: getDocId(),
+                      builder: ((context, snapshot) {
+                        return GetUserName(documentId: docIDs);
+                      }),
                     ),
                     Text(
                       'Doador Nível 1',

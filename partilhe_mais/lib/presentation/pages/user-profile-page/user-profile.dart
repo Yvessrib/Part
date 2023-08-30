@@ -25,6 +25,9 @@ class ProfileState extends State<Profile> {
         width: double.infinity,
         height: double.infinity,
         child: Column(children: [
+          SizedBox(
+            height: 30,
+          ),
           Stack(children: [
             Image.asset(
               'assets/images/header.png',
@@ -38,7 +41,7 @@ class ProfileState extends State<Profile> {
                     padding: EdgeInsets.symmetric(vertical: 20, horizontal: 14),
                     child: GestureDetector(
                         onTap: () {
-                          print("Teste botão!");
+                          Navigator.pop(context);
                         },
                         child: Image.asset('assets/images/setinha.png')),
                   ),
@@ -47,7 +50,7 @@ class ProfileState extends State<Profile> {
                           EdgeInsets.symmetric(vertical: 20, horizontal: 14),
                       child: GestureDetector(
                           onTap: () {
-                            print("Teste botão!");
+                            Navigator.of(context).pushNamed('Config');
                           },
                           child: Image.asset('assets/images/engrenagem.png'))),
                 ],

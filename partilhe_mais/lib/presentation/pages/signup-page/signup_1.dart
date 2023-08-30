@@ -1,8 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, curly_braces_in_flow_control_structures
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:partilhe_mais/presentation/components/ErroSnackBar.dart';
 import 'package:partilhe_mais/presentation/components/MyTextFormfield.dart';
 
 class SignUp1 extends StatefulWidget {
@@ -27,18 +29,22 @@ class SignUpState extends State<SignUp1> {
 
   Future signUp() async {
     if (passwordConfirmed()) {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: emailcontroler.text.trim(),
-              password: passwordcontroler.text.trim())
-          .then((value) {
-        Navigator.of(context).pushNamed('SignIn');
-        
-      });
+      try {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: emailcontroler.text.trim(),
+                password: passwordcontroler.text.trim())
+            .then((value) {
+          Navigator.pop(context);
+        });
 
-      // add user details
-      addUserDetails(namecontroler.text.trim(), emailcontroler.text.trim(),
-          cpfcontroler.text.trim());
+        addUserDetails(namecontroler.text.trim(), emailcontroler.text.trim(),
+            cpfcontroler.text.trim());
+      } catch (signUpError) {
+        if (signUpError == PlatformException) if (signUpError ==
+            'ERROR_EMAIL_ALREADY_IN_USE') {
+        }
+      }
     }
   }
 
@@ -250,3 +256,4 @@ class SignUpState extends State<SignUp1> {
     );
   }
 }
+

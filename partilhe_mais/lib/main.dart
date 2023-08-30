@@ -2,9 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:partilhe_mais/features/authentication/auth_check.dart';
+import 'package:partilhe_mais/presentation/pages/config_page.dart/config.dart';
 import 'package:partilhe_mais/presentation/pages/home-page/home.dart';
 import 'package:partilhe_mais/presentation/pages/list-category-page/list-category.dart';
 import 'package:partilhe_mais/presentation/pages/ong-page/ong_page.dart';
+import 'package:partilhe_mais/presentation/pages/profile-changes-page/ong_profile_change.dart';
+import 'package:partilhe_mais/presentation/pages/profile-changes-page/user_profile_change.dart';
 import 'package:partilhe_mais/presentation/pages/research-page/research_page.dart';
 import 'package:partilhe_mais/presentation/pages/signin-page/signin.dart';
 import 'package:partilhe_mais/presentation/pages/signup-page/signup_1.dart';
@@ -53,7 +56,11 @@ class MyApp extends StatelessWidget {
         'Profile': (context) => Profile(),
         'ONG': (context) => ONG(),
         'Research': (context) => Research(),
+        'Config': (context) => Config(),
+        'UserUpdate': (context) => UserUpdate(),
+        'OngUpdate': (context) => OngUpdate(),
       },
     );
   }
 }
+
