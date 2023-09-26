@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 
-class ONG extends StatefulWidget {
+class OngProfile extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return ONGState();
   }
 }
 
-class ONGState extends State<ONG> {
+class ONGState extends State<OngProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +27,7 @@ class ONGState extends State<ONG> {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            print("Teste botão!");
+                            Navigator.pop(context);
                           },
                           child: Image.asset('assets/images/ep_back.png')),
                       Container(
@@ -109,7 +109,9 @@ class ONGState extends State<ONG> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed('Donate');
+                },
                 child: Text(
                   "Doar",
                   style: TextStyle(

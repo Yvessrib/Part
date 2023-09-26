@@ -16,11 +16,11 @@ class SignUp1 extends StatefulWidget {
 
 class SignUpState extends State<SignUp1> {
   final _formKey = GlobalKey<FormState>();
-  final namecontroler = TextEditingController();
-  final emailcontroler = TextEditingController();
-  final passwordcontroler = TextEditingController();
-  final cpfcontroler = TextEditingController();
-  final passwordconfirmationcontroler = TextEditingController();
+  final namecontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final cpfcontroller = TextEditingController();
+  final passwordconfirmationcontroller = TextEditingController();
   String name = '';
   String email = '';
   String cpf = '';
@@ -32,35 +32,38 @@ class SignUpState extends State<SignUp1> {
       try {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
-                email: emailcontroler.text.trim(),
-                password: passwordcontroler.text.trim())
+          email: emailcontroller.text.trim(),
+          password: passwordcontroller.text.trim(),
+        )
             .then((value) {
           Navigator.pop(context);
+          print("SignedUp");
         });
 
-        addUserDetails(namecontroler.text.trim(), emailcontroler.text.trim(),
-            cpfcontroler.text.trim());
+        addUserDetails(namecontroller.text.trim(), emailcontroller.text.trim(),
+            cpfcontroller.text.trim());
       } catch (signUpError) {
         if (signUpError == PlatformException) if (signUpError ==
-            'ERROR_EMAIL_ALREADY_IN_USE') {
-        }
+            'ERROR_EMAIL_ALREADY_IN_USE') {}
       }
     }
   }
 
   Future addUserDetails(String name, String email, String cpf) async {
-    await FirebaseFirestore.instance
-        .collection("Users")
-        .doc(cpfcontroler.text.trim())
-        .set({
-      "name": namecontroler.text.trim(),
-      "email": emailcontroler.text.trim(),
+    await FirebaseFirestore.instance.collection("Users").add({
+      "name": namecontroller.text.trim(),
+      "email": emailcontroller.text.trim(),
+      "cpf": cpfcontroller.text.trim(),
+      "total doado": "0,00",
+      "Max doado": "0,00",
+      "Nivel doador": "1",
+      "XP doador": "0",
     });
   }
 
   bool passwordConfirmed() {
-    if (passwordcontroler.text.trim() ==
-        passwordconfirmationcontroler.text.trim()) {
+    if (passwordcontroller.text.trim() ==
+        passwordconfirmationcontroller.text.trim()) {
       return true;
     }
     return false;
@@ -152,7 +155,7 @@ class SignUpState extends State<SignUp1> {
                 child: Column(
                   children: [
                     MyTextFormField(
-                      controller: namecontroler,
+                      controller: namecontroller,
                       hintText: 'Nome completo',
                       obscureText: false,
                       validator: (value) {
@@ -165,7 +168,7 @@ class SignUpState extends State<SignUp1> {
                     ),
                     SizedBox(height: 10),
                     MyTextFormField(
-                      controller: cpfcontroler,
+                      controller: cpfcontroller,
                       hintText: 'CPF',
                       obscureText: false,
                       validator: (value) {
@@ -178,7 +181,7 @@ class SignUpState extends State<SignUp1> {
                     ),
                     SizedBox(height: 10),
                     MyTextFormField(
-                      controller: emailcontroler,
+                      controller: emailcontroller,
                       hintText: 'Email',
                       obscureText: false,
                       validator: (value) {
@@ -191,7 +194,7 @@ class SignUpState extends State<SignUp1> {
                     ),
                     SizedBox(height: 10),
                     MyTextFormField(
-                      controller: passwordcontroler,
+                      controller: passwordcontroller,
                       hintText: 'Senha',
                       obscureText: true,
                       validator: (value) {
@@ -204,13 +207,13 @@ class SignUpState extends State<SignUp1> {
                     ),
                     SizedBox(height: 10),
                     MyTextFormField(
-                      controller: passwordconfirmationcontroler,
+                      controller: passwordconfirmationcontroller,
                       hintText: 'Confirmação de senha',
                       obscureText: true,
                       validator: (value) {
                         if (value.isEmpty) {
                           return 'Porvaor, digite uma senha válida';
-                        } else if (value != passwordcontroler.text) {
+                        } else if (value != passwordcontroller.text) {
                           return 'As senhas não coincidem';
                         }
                         return null;
@@ -232,6 +235,7 @@ class SignUpState extends State<SignUp1> {
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
                                   signUp();
+                                  print("Button pressed");
                                 }
                               },
                               child: Text(
@@ -256,4 +260,3 @@ class SignUpState extends State<SignUp1> {
     );
   }
 }
-

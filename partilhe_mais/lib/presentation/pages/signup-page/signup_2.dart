@@ -14,17 +14,17 @@ class SignUp2 extends StatefulWidget {
 
 class SignUpState extends State<SignUp2> {
   final _formKey = GlobalKey<FormState>();
-  final namecontroler = TextEditingController();
-  final emailcontroler = TextEditingController();
-  final cnpjcontroler = TextEditingController();
-  final cepcontroler = TextEditingController();
-  final estadocontroler = TextEditingController();
-  final cidadecontroler = TextEditingController();
-  final numcontroler = TextEditingController();
-  final ruacontroler = TextEditingController();
+  final namecontroller = TextEditingController();
+  final emailcontroller = TextEditingController();
+  final cnpjcontroller = TextEditingController();
+  final cepcontroller = TextEditingController();
+  final estadocontroller = TextEditingController();
+  final cidadecontroller = TextEditingController();
+  final numcontroller = TextEditingController();
+  final ruacontroller = TextEditingController();
   final bairrocontroller = TextEditingController();
-  final passwordcontroler = TextEditingController();
-  final passwordconfirmationcontroler = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final passwordconfirmationcontroller = TextEditingController();
 
   String name = '';
   String email = '';
@@ -42,22 +42,22 @@ class SignUpState extends State<SignUp2> {
     if (passwordConfirmed()) {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: emailcontroler.text.trim(),
-              password: passwordcontroler.text.trim())
+              email: emailcontroller.text.trim(),
+              password: passwordcontroller.text.trim())
           .then((value) {
         Navigator.of(context).pushNamed('SignIn');
       });
 
       // add user details
       addUserDetails(
-        namecontroler.text.trim(),
-        emailcontroler.text.trim(),
-        cnpjcontroler.text.trim(),
-        cepcontroler.text.trim(),
-        estadocontroler.text.trim(),
-        cidadecontroler.text.trim(),
-        numcontroler.text.trim(),
-        ruacontroler.text.trim(),
+        namecontroller.text.trim(),
+        emailcontroller.text.trim(),
+        cnpjcontroller.text.trim(),
+        cepcontroller.text.trim(),
+        estadocontroller.text.trim(),
+        cidadecontroller.text.trim(),
+        numcontroller.text.trim(),
+        ruacontroller.text.trim(),
         bairrocontroller.text.trim(),
       );
     }
@@ -76,22 +76,22 @@ class SignUpState extends State<SignUp2> {
   ) async {
     await FirebaseFirestore.instance
         .collection("institution")
-        .doc(cnpjcontroler.text.trim())
-        .set({
-      "name": namecontroler.text.trim(),
-      "email": emailcontroler.text.trim(),
-      "cep": cepcontroler.text.trim(),
-      "estado": estadocontroler.text.trim(),
-      "cidade": cidadecontroler.text.trim(),
-      "num": numcontroler.text.trim(),
-      "rua": ruacontroler.text.trim(),
+        .add({
+      "name": namecontroller.text.trim(),
+      "email": emailcontroller.text.trim(),
+      "cep": cepcontroller.text.trim(),
+      "estado": estadocontroller.text.trim(),
+      "cidade": cidadecontroller.text.trim(),
+      "num": numcontroller.text.trim(),
+      "rua": ruacontroller.text.trim(),
       "bairro": bairrocontroller.text.trim(),
+      "cnpj": cnpjcontroller.text.trim(),
     });
   }
 
   bool passwordConfirmed() {
-    if (passwordcontroler.text.trim() ==
-        passwordconfirmationcontroler.text.trim()) {
+    if (passwordcontroller.text.trim() ==
+        passwordconfirmationcontroller.text.trim()) {
       return true;
     }
     return false;
@@ -184,7 +184,7 @@ class SignUpState extends State<SignUp2> {
                   child: SingleChildScrollView(
                     child: Column(children: [
                       MyTextFormField(
-                        controller: namecontroler,
+                        controller: namecontroller,
                         hintText: 'Nome completo',
                         obscureText: false,
                         validator: (value) {
@@ -196,7 +196,7 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => name = value,
                       ),
                       MyTextFormField(
-                        controller: emailcontroler,
+                        controller: emailcontroller,
                         hintText: 'Email',
                         obscureText: false,
                         validator: (value) {
@@ -208,7 +208,7 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => email = value,
                       ),
                       MyTextFormField(
-                        controller: cnpjcontroler,
+                        controller: cnpjcontroller,
                         hintText: 'CNPJ',
                         obscureText: false,
                         validator: (value) {
@@ -220,7 +220,7 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => cnpj = value,
                       ),
                       MyTextFormField(
-                        controller: estadocontroler,
+                        controller: estadocontroller,
                         hintText: 'Estado',
                         obscureText: false,
                         validator: (value) {
@@ -236,7 +236,7 @@ class SignUpState extends State<SignUp2> {
                           SizedBox(
                             width: 190,
                             child: MyTextFormField(
-                              controller: cepcontroler,
+                              controller: cepcontroller,
                               hintText: 'CEP',
                               obscureText: false,
                               validator: (value) {
@@ -252,7 +252,7 @@ class SignUpState extends State<SignUp2> {
                           SizedBox(
                             width: 190,
                             child: MyTextFormField(
-                              controller: numcontroler,
+                              controller: numcontroller,
                               hintText: 'Número',
                               obscureText: false,
                               validator: (value) {
@@ -267,7 +267,7 @@ class SignUpState extends State<SignUp2> {
                         ],
                       ),
                       MyTextFormField(
-                        controller: cidadecontroler,
+                        controller: cidadecontroller,
                         hintText: 'Cidade',
                         obscureText: false,
                         validator: (value) {
@@ -279,7 +279,7 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => cidade = value,
                       ),
                       MyTextFormField(
-                        controller: ruacontroler,
+                        controller: ruacontroller,
                         hintText: 'Rua',
                         obscureText: false,
                         validator: (value) {
@@ -303,7 +303,7 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => bairro = value,
                       ),
                       MyTextFormField(
-                        controller: passwordcontroler,
+                        controller: passwordcontroller,
                         hintText: 'Senha',
                         obscureText: true,
                         validator: (value) {
@@ -315,13 +315,13 @@ class SignUpState extends State<SignUp2> {
                         onSaved: (value) => password = value,
                       ),
                       MyTextFormField(
-                        controller: passwordconfirmationcontroler,
+                        controller: passwordconfirmationcontroller,
                         hintText: 'Confirmação de senha',
                         obscureText: true,
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Porvaor, digite uma senha válida';
-                          } else if (value != passwordcontroler.text) {
+                          } else if (value != passwordcontroller.text) {
                             return 'As senhas não coincidem';
                           }
                           return null;

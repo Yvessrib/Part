@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:partilhe_mais/features/crud-user/read_name.dart';
 
 // ignore: use_key_in_widget_constructors
 class Profile extends StatefulWidget {
@@ -11,9 +14,25 @@ class Profile extends StatefulWidget {
 }
 
 class ProfileState extends State<Profile> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  String docIDs = '';
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: user?.email)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            print(document.reference);
+            docIDs = document.reference.id;
+          }),
+        );
+  }
+
   final String username = "Toninho Rodrigues"; // Insira o nome do usuário aqui
-  final String userRole =
-      "Doador Nível 1 - Novato Generoso"; // Insira o cargo do usuário aqui
+  final String userRole = "Doador Nível 1 - Novato Generoso"; // Insira o cargo do usuário aqui
   final double totalDonated = 100.0; // Insira o valor total doado aqui
   final double maxDonated = 50.0; // Insira o valor máximo doado aqui
 
@@ -95,16 +114,20 @@ class ProfileState extends State<Profile> {
             ),
           ]),
           SizedBox(height: 20.0),
-          Text(
-            username,
-            style: TextStyle(
-              color: Color(0xFFFFFFFF), // Cor branca (#FFFFFF)
-              fontFamily: 'Raleway',
-              fontSize: 24.0,
-              fontWeight: FontWeight.w600, // Peso da fonte 600 (bold)
-              fontStyle: FontStyle.normal,
-              height: 20.0 / 24.0, // Line height = 20px / Font size = 24px
-            ),
+          FutureBuilder(
+            future: getDocId(),
+            builder: ((context, snapshot) {
+              return GetUserName(
+                  documentId: docIDs,
+                  style: TextStyle(
+                    fontFamily: 'Raleway',
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w600, // Peso da fonte 600 (bold)
+                    fontStyle: FontStyle.normal,
+                    height: 20.0 / 24.0,
+                    color: Colors.white,
+                  ));
+            }),
           ),
           SizedBox(height: 10.0),
           Text(
