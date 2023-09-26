@@ -73,7 +73,13 @@ class HomeState extends State<Home> {
                     FutureBuilder(
                       future: getDocId(),
                       builder: ((context, snapshot) {
-                        return GetUserName(documentId: docIDs);
+                        return GetUserName(
+                            documentId: docIDs, style:
+                            TextStyle(
+                                fontFamily: 'Raleway',
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white));
                       }),
                     ),
                     Text(

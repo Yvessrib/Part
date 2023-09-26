@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:partilhe_mais/features/authentication/auth_check.dart';
 import 'package:partilhe_mais/presentation/pages/config_page.dart/config.dart';
+import 'package:partilhe_mais/presentation/pages/donate_page/donate_page.dart';
 import 'package:partilhe_mais/presentation/pages/home-page/home.dart';
 import 'package:partilhe_mais/presentation/pages/list-category-page/list-category.dart';
 import 'package:partilhe_mais/presentation/pages/ong-page/ong_page.dart';
@@ -54,13 +55,14 @@ class MyApp extends StatelessWidget {
         'SignUp2': (context) => SignUp2(),
         'ListCategory': (context) => ListCategory(),
         'Profile': (context) => Profile(),
-        'ONG': (context) => ONG(),
         'Research': (context) => Research(),
         'Config': (context) => Config(),
         'UserUpdate': (context) => UserUpdate(),
         'OngUpdate': (context) => OngUpdate(),
+        'Donate': (context) => Donate(),
+        'OngProfile': (context) => OngProfile(),
+        'OngUpadate': (context) => OngUpdate(),
       },
     );
   }
 }
-

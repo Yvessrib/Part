@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, prefer_final_fields, use_key_in_widget_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:partilhe_mais/features/crud-user/read_cpf.dart';
 import 'package:partilhe_mais/presentation/components/MyTextFormFieldSenha.dart';
 import 'package:partilhe_mais/presentation/components/MyTextFormfield.dart';
 
@@ -12,6 +15,23 @@ class UserUpdate extends StatefulWidget {
 }
 
 class UserUpdateState extends State<UserUpdate> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  String docIDs = '';
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: user?.email)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            print(document.reference);
+            docIDs = document.reference.id;
+          }),
+        );
+  }
+
   final _formKey = GlobalKey<FormState>();
   final namecontroler = TextEditingController();
   final cpfcontroler = TextEditingController();
@@ -126,14 +146,31 @@ class UserUpdateState extends State<UserUpdate> {
                                     color: Color(0xFFF0EC57), width: 1),
                               ),
                             ),
-                            child: Text(
-                              'CPF: 111.222.333-44',
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: 'Raleway',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300,
-                              ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "CPF: ",
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontFamily: 'Raleway',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                  ),
+                                ),
+                                FutureBuilder(
+                                  future: getDocId(),
+                                  builder: ((context, snapshot) {
+                                    return GetUserCpf(
+                                        documentId: docIDs,
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: 'Raleway',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ));
+                                  }),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -178,6 +215,18 @@ class UserUpdateState extends State<UserUpdate> {
                       return null;
                     },
                     onSaved: (value) => password = value,
+                  ),
+                  MyTextFormFieldSenha(
+                    controller: passwordconfirmationcontroler,
+                    obscureText: !_passwordVisible,
+                    hintText: 'Confirmar senha',
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Por favor, digite uma senha válida';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) => passwordconfirmation = value,
                   ),
                   SizedBox(height: 20),
                 ],
