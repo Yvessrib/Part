@@ -3,11 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class GetUserMaxDonate extends StatelessWidget {
+class GetUserTotalDonate extends StatelessWidget {
   final String documentId;
   TextStyle style;
 
-  GetUserMaxDonate({required this.documentId, required this.style});
+  GetUserTotalDonate({required this.documentId, required this.style});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class GetUserMaxDonate extends StatelessWidget {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           return Text(
-            '${data['Max doado']}',
+            '${data['total doado']}',
             style: style,
           );
         }

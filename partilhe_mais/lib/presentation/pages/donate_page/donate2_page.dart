@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 
-class Donate extends StatefulWidget {
+class Donate2 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return DonateState();
   }
 }
 
-class DonateState extends State<Donate> {
+class DonateState extends State<Donate2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +73,7 @@ class DonateState extends State<Donate> {
                                     ]),
                                 child: Stack(
                                   children: [
-                                    Image.asset(
-                                        'assets/images/associacao2.png'),
+                                    Image.asset('assets/images/idoso2.png'),
                                   ],
                                 ))),
                         Padding(
@@ -82,7 +81,7 @@ class DonateState extends State<Donate> {
                           child: Align(
                             alignment: Alignment.topCenter,
                             child: Text(
-                              'Instituto "Apoio Solidário"',
+                              'Lar dos idosos - Itanhandu',
                               style: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
                                 fontFamily: 'Raleway',

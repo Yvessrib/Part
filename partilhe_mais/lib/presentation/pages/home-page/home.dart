@@ -18,6 +18,7 @@ class HomeState extends State<Home> {
   User? user = FirebaseAuth.instance.currentUser;
 
   String docIDs = '';
+  String role = '';
 
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -74,8 +75,8 @@ class HomeState extends State<Home> {
                       future: getDocId(),
                       builder: ((context, snapshot) {
                         return GetUserName(
-                            documentId: docIDs, style:
-                            TextStyle(
+                            documentId: docIDs,
+                            style: TextStyle(
                                 fontFamily: 'Raleway',
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -83,11 +84,11 @@ class HomeState extends State<Home> {
                       }),
                     ),
                     Text(
-                      'Doador Nível 1',
+                      'Doador Nível 3',
                       style: TextStyle(
                           fontFamily: 'Raleway',
                           fontSize: 20,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white),
                     )
                   ],
@@ -96,6 +97,69 @@ class HomeState extends State<Home> {
             ),
             SizedBox(
               height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Patrocinadores: ",
+                    style: TextStyle(
+                        fontFamily: 'Raleway',
+                        fontSize: 24,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: Container(
+                height: 100,
+                child: ListView(scrollDirection: Axis.horizontal, children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: InkWell(
+                        child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(45)),
+                      width: 88,
+                      child: Image.asset(
+                        'assets/icons/emp4.png',
+                      ),
+                    )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: InkWell(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(45)),
+                            width: 88,
+                            child: Image.asset('assets/icons/emp2.png'))),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: InkWell(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(45)),
+                            width: 88,
+                            child: Image.asset('assets/icons/emp3.png'))),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: InkWell(
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(45)),
+                            width: 88,
+                            child: Image.asset('assets/icons/emp1.png'))),
+                  ),
+                ]),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
@@ -134,7 +198,7 @@ class HomeState extends State<Home> {
                     style: TextStyle(
                         fontFamily: 'Raleway',
                         fontSize: 35,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: Colors.white),
                   ),
                 ],

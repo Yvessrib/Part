@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:partilhe_mais/presentation/components/button.dart';
@@ -13,6 +14,23 @@ class Config extends StatefulWidget {
 }
 
 class ConfigState extends State<Config> {
+  User? user = FirebaseAuth.instance.currentUser;
+
+  String docIDs = '';
+
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: user?.email)
+        .get()
+        .then(
+          (snapshot) => snapshot.docs.forEach((document) {
+            print(document.reference);
+            docIDs = document.reference.id;
+          }),
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,8 +107,10 @@ class ConfigState extends State<Config> {
                 SizedBox(height: 27),
                 ElevatedButton(
                     style: button,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed('OngUpdate');
+                    onPressed: () async {
+                      FirebaseAuth.instance.currentUser?.delete();
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushNamed('/');
                     },
                     child: Text("Apagar Conta",
                         style: TextStyle(

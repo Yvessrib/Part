@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 
-class OngProfile extends StatefulWidget {
+class OngProfile2 extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return ONGState();
   }
 }
 
-class ONGState extends State<OngProfile> {
+class ONGState extends State<OngProfile2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class ONGState extends State<OngProfile> {
                         child: Align(
                           alignment: Alignment.center,
                           child: Text(
-                            'Associação de Caridade de PA',
+                            'Lar dos Idosos',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: const Color.fromARGB(255, 0, 0, 0),
@@ -56,7 +56,7 @@ class ONGState extends State<OngProfile> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 30),
-                  child: Image.asset('assets/images/associacao.png'),
+                  child: Image.asset('assets/images/lardosidosos.png'),
                 ),
                 Padding(
                   padding:
@@ -64,7 +64,7 @@ class ONGState extends State<OngProfile> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Associação de Caridade de Pouso Alegre',
+                      'Lar dos Idosos - Itanhandu',
                       style: TextStyle(
                         color: Color.fromARGB(255, 255, 255, 255),
                         fontFamily: 'Raleway',
@@ -111,7 +111,7 @@ class ONGState extends State<OngProfile> {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('Donate');
+                  Navigator.of(context).pushNamed('Donate2');
                 },
                 child: Text(
                   "Doar",

@@ -3,14 +3,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class GetUserMaxDonate extends StatelessWidget {
+class GetUserRole extends StatelessWidget {
   final String documentId;
-  TextStyle style;
 
-  GetUserMaxDonate({required this.documentId, required this.style});
+  GetUserRole({required this.documentId});
 
   @override
   Widget build(BuildContext context) {
+    String role;
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
 
     if (documentId == '') {
@@ -23,10 +23,12 @@ class GetUserMaxDonate extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
-          return Text(
-            '${data['Max doado']}',
-            style: style,
-          );
+          if (data['role'] == 'doador') {
+            role = 'doador';
+          } else {
+            role = 'ong';
+          }
+            return Text(role);
         }
         return Text("loading");
       }),

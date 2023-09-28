@@ -44,10 +44,15 @@ class ListCategory extends StatelessWidget {
                 child: Column(
                   children: [
                     OngCard(
-                        title: 'Hospital',
+                        title: 'Associação de Caridade de Pouso Alegre',
                         description:
-                            'Ajude a instituição com algumas coisa que ele ta fazendo e estará brevemente descrito aqui',
+                            'Ajude a instituição com doações seja monetárias ou de roupas. Ajude o próximo, com algo que você não precisa mais. ',
                         path: 'OngProfile'),
+                    OngCard(
+                        title: 'Lar dos Idosos',
+                        description:
+                            'Ajude a melhor idade com doações monetárias ou de fraldas tamaho G. Ajude quem já ajudou muita gente.',
+                        path: 'OngProfile2'),
                   ],
                 ),
               ),

@@ -74,9 +74,7 @@ class SignUpState extends State<SignUp2> {
     String rua,
     String bairro,
   ) async {
-    await FirebaseFirestore.instance
-        .collection("institution")
-        .add({
+    await FirebaseFirestore.instance.collection("users").add({
       "name": namecontroller.text.trim(),
       "email": emailcontroller.text.trim(),
       "cep": cepcontroller.text.trim(),
@@ -86,6 +84,7 @@ class SignUpState extends State<SignUp2> {
       "rua": ruacontroller.text.trim(),
       "bairro": bairrocontroller.text.trim(),
       "cnpj": cnpjcontroller.text.trim(),
+      "role": "ong",
     });
   }
 

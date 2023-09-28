@@ -15,7 +15,9 @@ class OngCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){Navigator.of(context).pushNamed(path);},
+      onTap: () {
+        Navigator.of(context).pushNamed(path);
+      },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         padding: EdgeInsets.all(10),
@@ -36,7 +38,7 @@ class OngCard extends StatelessWidget {
                 fontStyle: FontStyle.normal,
                 height: 1, // 100%
               ),
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.start,
             ),
             SizedBox(height: 10),
             Text(

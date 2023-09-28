@@ -58,6 +58,7 @@ class SignUpState extends State<SignUp1> {
       "Max doado": "0,00",
       "Nivel doador": "1",
       "XP doador": "0",
+      "role": "doador",
     });
   }
 

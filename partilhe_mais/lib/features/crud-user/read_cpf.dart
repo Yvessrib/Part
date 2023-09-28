@@ -14,7 +14,7 @@ class GetUserCpf extends StatelessWidget {
     CollectionReference users = FirebaseFirestore.instance.collection('Users');
     
     if (documentId == '') {
-      return Text('loading');
+      return Text("loading");
     }
     
     return FutureBuilder<DocumentSnapshot>(
